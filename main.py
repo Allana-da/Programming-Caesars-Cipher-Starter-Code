@@ -19,10 +19,19 @@ mode = input("Do you want to encrypt or decrypt? ")
 # Encrypt or decrypt the message
 
 for character in initialMessage:
-  initialPosition = possibleCharacters.find(character)
-  if mode.lower() == "encrypt":
-    ShiftedPosition = initialPosition + key
-  elif mode == "decrypt":
-    ShiftedPosition = initialPosition - key
-  print(shiftedPosition)
+  if character in possibleCharacters:
+    initialPosition = possibleCharacters.find(character)
+    if mode.lower() == "encrypt":
+      ShiftedPosition = initialPosition + key
+    elif mode.lower() == "decrypt":
+      ShiftedPosition = initialPosition - key
+    if ShiftedPosition >= len(possibleCharacters):
+      ShiftedPosition = ShiftedPosition - len(possibleCharacters)
+    elif ShiftedPosition < 0:
+      ShiftedPosition = ShiftedPosition + len(possibleCharacters)
+
+    ShiftedMessage = ShiftedMessage + possibleCharacters[ShiftedPosition]
+  else:
+    ShiftedMessage = ShiftedMessage + character
 # Print the shifted message
+print("Your " + mode.lower()+"ed message is: " + ShiftedMessage)
